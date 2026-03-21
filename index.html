@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
     <title>Fortress - Security & Facility Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -54,7 +55,7 @@
             details:hover { border-color: var(--accent); }
             .social a:hover { background: var(--accent); transform: translateY(-3px); }
             .whatsapp-float:hover { transform: scale(1.15) translateY(-5px); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6); }
-            .email-link:hover { color: var(--accent); text-decoration: underline; }
+            .contact-link:hover { color: var(--accent); text-decoration: underline; }
         }
 
         /* === HERO SECTION === */
@@ -136,12 +137,15 @@
         /* === CONTACT === */
         .contact { background: var(--light); }
         .contact-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; max-width: 1100px; margin: 0 auto; }
-        .contact-info p { margin-bottom: 1.5rem; color: var(--gray); display: flex; flex-direction: column; gap: 0.25rem; }
+        .contact-info p { margin-bottom: 1.5rem; color: var(--gray); display: flex; flex-direction: column; gap: 0.4rem; }
         .contact-info span { font-weight: 700; color: var(--primary); font-size: 1.1rem; }
         .contact-form input, .contact-form textarea { width: 100%; padding: 1.2rem; margin-bottom: 1rem; border: 1px solid #e2e8f0; border-radius: 12px; font-family: inherit; font-size: 1rem; background: var(--bg-light); -webkit-appearance: none; }
         .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--accent); background: #fff; box-shadow: 0 0 0 4px rgba(37,99,235,0.1); }
         .contact-form textarea { min-height: 150px; resize: vertical; }
-        .email-link { color: inherit; transition: color 0.3s ease; }
+        
+        /* FIX: Prevent awkward wrapping for contact links */
+        .contact-link { color: inherit; transition: color 0.3s ease; white-space: nowrap; display: inline-block; }
+        .address-text { display: block; line-height: 1.6; }
 
         /* === WHATSAPP BUTTON === */
         .whatsapp-float {
@@ -339,12 +343,18 @@
         <h2 class="section-title">Get in <span>Touch</span></h2>
         <div class="contact-wrapper">
             <div class="contact-info">
-                <p><span>📍 Headquarters</span>
-                123 Business Park, Suite 100<br>Hyderabad, Telangana 500081</p>
-                <p><span>📞 Direct Line</span>
-                +91 90300 51070</p>
-                <p><span>✉️ Email Desk</span>
-                <a href="mailto:contact.fsfortress@gmail.com" class="email-link">contact.fsfortress@gmail.com</a></p>
+                <p>
+                    <span>📍 Headquarters</span>
+                    <span class="address-text">123 Business Park, Suite 100<br>Hyderabad, Telangana <span style="white-space: nowrap;">500081</span></span>
+                </p>
+                <p>
+                    <span>📞 Direct Line</span>
+                    <a href="tel:+919030051070" class="contact-link">+91 90300 51070</a>
+                </p>
+                <p>
+                    <span>✉️ Email Desk</span>
+                    <a href="mailto:contact.fsfortress@gmail.com" class="contact-link">contact.fsfortress@gmail.com</a>
+                </p>
             </div>
             <form class="contact-form" onsubmit="alert('Thank you for reaching out! We will contact you shortly.'); return false;">
                 <input type="text" name="name" placeholder="Full Name" required>
