@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortress - Security & Facility Services</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fortress - Security & Facility Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* === RESET & BASE === */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; color: #1e293b; line-height: 1.6; overflow-x: hidden; background-color: #f8fafc; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        body { font-family: 'Inter', sans-serif; color: #1e293b; line-height: 1.6; overflow-x: hidden; background-color: #f8fafc; -webkit-tap-highlight-color: transparent; }
         a { text-decoration: none; color: inherit; }
-        img { max-width: 100%; }
+        img { max-width: 100%; height: auto; }
 
         /* === COLORS & VARIABLES === */
         :root {
@@ -28,194 +28,159 @@
 
         /* === HEADER (GLASSMORPHISM) === */
         header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: transparent;
-            padding: 1.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            transition: all 0.4s ease;
+            position: fixed; top: 0; width: 100%; background: transparent; padding: 1.5rem 5%;
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: all 0.4s ease;
         }
         header.scrolled {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            padding: 1rem 5%;
+            background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); padding: 1rem 5%;
         }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: #fff;
-            font-weight: 800;
-            font-size: 1.5rem;
-            letter-spacing: -0.5px;
-        }
+        .logo { display: flex; align-items: center; gap: 0.75rem; color: #fff; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; z-index: 1001; }
         .logo img { height: 40px; width: 40px; border-radius: 8px; background: var(--gradient); padding: 4px; }
-        nav { display: flex; gap: 2.5rem; }
-        nav a { color: #cbd5e1; font-weight: 500; transition: color 0.3s; position: relative; }
-        nav a:hover { color: #fff; }
-        nav a::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0;
-            background: var(--gradient); transition: width 0.3s ease;
+        nav { display: flex; gap: 2.5rem; transition: all 0.3s ease; }
+        nav a { color: #cbd5e1; font-weight: 500; transition: color 0.3s; position: relative; padding: 0.5rem 0; }
+        
+        .menu-btn { display: none; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; z-index: 1001; padding: 0.5rem; }
+
+        /* Hover states only for devices with a mouse */
+        @media (hover: hover) {
+            nav a:hover { color: #fff; }
+            nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background: var(--gradient); transition: width 0.3s ease; }
+            nav a:hover::after { width: 100%; }
+            .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px var(--accent-glow); }
+            .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; box-shadow: none; }
+            .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+            .service-card:hover::before { transform: scaleX(1); }
+            details:hover { border-color: var(--accent); }
+            .social a:hover { background: var(--accent); transform: translateY(-3px); }
+            .whatsapp-float:hover { transform: scale(1.15) translateY(-5px); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6); }
+            .email-link:hover { color: var(--accent); text-decoration: underline; }
         }
-        nav a:hover::after { width: 100%; }
-        .menu-btn { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
 
         /* === HERO SECTION === */
         .hero {
             background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9)), 
                         url('https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=2000') center/cover;
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 6rem 5% 4rem;
-            position: relative;
+            color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 8rem 5% 4rem; position: relative;
         }
-        .hero > div { position: relative; z-index: 1; max-width: 900px; }
+        .hero > div { position: relative; z-index: 1; max-width: 900px; width: 100%; }
         .hero h1 { 
-            font-size: clamp(2.5rem, 6vw, 4.5rem); 
-            font-weight: 800; 
-            margin-bottom: 1.5rem; 
-            line-height: 1.1;
-            background: linear-gradient(to right, #fff, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: clamp(2.2rem, 6vw, 4.5rem); font-weight: 800; margin-bottom: 1.5rem; line-height: 1.2;
+            background: linear-gradient(to right, #fff, #93c5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .hero p { font-size: 1.25rem; color: #cbd5e1; max-width: 600px; margin: 0 auto 2.5rem; }
-        .hero-features {
-            display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
-            margin-bottom: 2.5rem; font-size: 1rem; color: #94a3b8; font-weight: 500;
-        }
-        .hero-features span { display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); }
+        .hero p { font-size: clamp(1rem, 3vw, 1.25rem); color: #cbd5e1; max-width: 600px; margin: 0 auto 2.5rem; }
+        .hero-features { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; font-size: 0.95rem; color: #94a3b8; font-weight: 500; }
+        .hero-features span { display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.05); padding: 0.5rem 1.2rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); }
+        
+        /* Buttons */
+        .btn-container { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
         .btn {
-            display: inline-block;
-            background: var(--gradient);
-            color: #fff;
-            padding: 1.1rem 2.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+            display: inline-flex; justify-content: center; align-items: center; background: var(--gradient);
+            color: #fff; padding: 1.1rem 2.5rem; border-radius: 50px; font-weight: 600; letter-spacing: 0.5px;
+            transition: all 0.3s ease; border: none; cursor: pointer; text-align: center;
         }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px var(--accent-glow); }
-        .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.3); margin-left: 1rem; }
-        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; box-shadow: none; }
+        .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.3); }
 
         /* === SECTIONS === */
         section { padding: 6rem 5%; }
-        .section-title { text-align: center; font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 3rem; }
+        .section-title { text-align: center; font-size: clamp(2rem, 5vw, 2.5rem); font-weight: 700; color: var(--primary); margin-bottom: 3rem; line-height: 1.2; }
         .section-title span { color: var(--accent); }
 
         /* SCROLL REVEAL ANIMATION */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* === ABOUT === */
         .about { background: var(--light); text-align: center; }
-        .about p { max-width: 800px; margin: 0 auto; font-size: 1.15rem; color: var(--gray); line-height: 1.8; }
+        .about p { max-width: 800px; margin: 0 auto; font-size: 1.1rem; color: var(--gray); line-height: 1.8; }
 
         /* === SERVICES === */
         .services { background: var(--bg-light); }
-        .services-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;
-        }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
         .service-card {
-            background: var(--light);
-            padding: 2.5rem;
-            border-radius: 16px;
-            text-align: left;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.05);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            background: var(--light); padding: 2rem; border-radius: 16px; text-align: left;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05); position: relative; overflow: hidden; transition: all 0.3s ease;
         }
-        .service-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
-        }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-        .service-card:hover::before { transform: scaleX(1); }
-        .service-card .icon { font-size: 3rem; margin-bottom: 1.5rem; display: inline-block; background: var(--bg-light); padding: 1rem; border-radius: 12px; }
-        .service-card h3 { color: var(--primary); font-size: 1.4rem; margin-bottom: 0.75rem; }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .service-card .icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: inline-block; background: var(--bg-light); padding: 1rem; border-radius: 12px; }
+        .service-card h3 { color: var(--primary); font-size: 1.3rem; margin-bottom: 0.75rem; }
         .service-card p { color: var(--gray); font-size: 1rem; }
 
-        /* === STATS (WITH COUNTER) === */
-        .stats {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff; padding: 4rem 5%; position: relative;
-        }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; text-align: center; }
-        .stat-item h3 { font-size: 3.5rem; font-weight: 800; color: #38bdf8; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; }
-        .stat-item p { color: #94a3b8; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem; }
+        /* === STATS === */
+        .stats { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; padding: 4rem 5%; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .stat-item h3 { font-size: clamp(2.5rem, 6vw, 3.5rem); font-weight: 800; color: #38bdf8; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; }
+        .stat-item p { color: #94a3b8; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; font-size: 0.85rem; }
 
         /* === TESTIMONIALS === */
         .testimonials { background: var(--bg-light); }
-        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
-        .testimonial-card {
-            background: var(--light); padding: 2.5rem; border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04); position: relative;
-        }
-        .testimonial-card::after { content: '"'; position: absolute; top: 1rem; right: 2rem; font-size: 6rem; color: #f1f5f9; font-family: serif; line-height: 1; }
-        .testimonial-card p { font-style: italic; color: var(--gray); margin-bottom: 1.5rem; position: relative; z-index: 1; font-size: 1.05rem; }
-        .client-info { display: flex; align-items: center; gap: 1rem; }
-        .avatar { width: 50px; height: 50px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; font-size: 1.2rem; }
-        .client-details h4 { color: var(--primary); font-size: 1.1rem; }
-        .client-details span { font-size: 0.85rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .testimonial-card { background: var(--light); padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); position: relative; }
+        .testimonial-card::after { content: '"'; position: absolute; top: 0.5rem; right: 1.5rem; font-size: 5rem; color: #f1f5f9; font-family: serif; line-height: 1; z-index: 0; }
+        .testimonial-card p { font-style: italic; color: var(--gray); margin-bottom: 1.5rem; position: relative; z-index: 1; font-size: 1rem; }
+        .client-info { display: flex; align-items: center; gap: 1rem; position: relative; z-index: 1; }
+        .avatar { width: 45px; height: 45px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; font-size: 1.1rem; flex-shrink: 0; }
+        .client-details h4 { color: var(--primary); font-size: 1.05rem; }
+        .client-details span { font-size: 0.8rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* === FAQ SECTION === */
         .faq { max-width: 800px; margin: 0 auto; }
         details { background: var(--light); border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 1rem; padding: 1.25rem; transition: all 0.3s ease; }
-        details:hover { border-color: var(--accent); }
-        summary { font-weight: 600; color: var(--primary); font-size: 1.1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary { font-weight: 600; color: var(--primary); font-size: 1.05rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
         summary::-webkit-details-marker { display: none; }
-        summary::after { content: '+'; font-size: 1.5rem; color: var(--accent); transition: transform 0.3s; }
+        summary::after { content: '+'; font-size: 1.5rem; color: var(--accent); transition: transform 0.3s; flex-shrink: 0; margin-left: 1rem; }
         details[open] summary::after { transform: rotate(45deg); }
         details p { margin-top: 1rem; color: var(--gray); padding-top: 1rem; border-top: 1px solid #f1f5f9; }
 
         /* === CONTACT === */
         .contact { background: var(--light); }
-        .contact-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; max-width: 1100px; margin: 0 auto; }
+        .contact-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; max-width: 1100px; margin: 0 auto; }
         .contact-info p { margin-bottom: 1.5rem; color: var(--gray); display: flex; flex-direction: column; gap: 0.25rem; }
         .contact-info span { font-weight: 700; color: var(--primary); font-size: 1.1rem; }
-        .contact-form input, .contact-form textarea {
-            width: 100%; padding: 1.2rem; margin-bottom: 1.2rem; border: 1px solid #e2e8f0; border-radius: 12px;
-            font-family: inherit; font-size: 1rem; background: var(--bg-light); transition: all 0.3s ease;
-        }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 1.2rem; margin-bottom: 1rem; border: 1px solid #e2e8f0; border-radius: 12px; font-family: inherit; font-size: 1rem; background: var(--bg-light); -webkit-appearance: none; }
         .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--accent); background: #fff; box-shadow: 0 0 0 4px rgba(37,99,235,0.1); }
-        .contact-form textarea { min-height: 160px; resize: vertical; }
+        .contact-form textarea { min-height: 150px; resize: vertical; }
+        .email-link { color: inherit; transition: color 0.3s ease; }
 
         /* === WHATSAPP BUTTON === */
         .whatsapp-float {
             position: fixed; bottom: 30px; right: 30px; background-color: var(--whatsapp); color: white;
-            border-radius: 50%; width: 65px; height: 65px; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); z-index: 1000; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 999; transition: all 0.3s ease;
         }
-        .whatsapp-float:hover { transform: scale(1.15) translateY(-5px); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6); }
-        .whatsapp-float svg { width: 38px; height: 38px; fill: currentColor; }
+        .whatsapp-float svg { width: 35px; height: 35px; fill: currentColor; }
 
         /* === FOOTER === */
-        footer { background: var(--primary); color: #94a3b8; text-align: center; padding: 3rem 5%; }
-        footer h3 { color: #fff; font-size: 1.5rem; margin-bottom: 1rem; }
+        footer { background: var(--primary); color: #94a3b8; text-align: center; padding: 3rem 5% 5rem; }
+        footer h3 { color: #fff; font-size: 1.5rem; margin-bottom: 0.5rem; }
         .social { margin: 1.5rem 0; display: flex; justify-content: center; gap: 1rem; }
         .social a { width: 45px; height: 45px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.3s ease; }
-        .social a:hover { background: var(--accent); transform: translateY(-3px); }
 
-        /* === MOBILE === */
+        /* === MOBILE RESPONSIVE UPGRADES === */
         @media (max-width: 768px) {
-            nav { position: absolute; top: 100%; left: 0; right: 0; background: var(--primary); flex-direction: column; padding: 2rem; gap: 1.5rem; display: none; border-top: 1px solid rgba(255,255,255,0.1); }
-            nav.active { display: flex; }
+            section { padding: 4rem 5%; }
+            .section-title { margin-bottom: 2rem; }
+            
+            /* Mobile Nav */
             .menu-btn { display: block; }
-            .hero h1 { font-size: 2.5rem; }
+            nav {
+                position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+                background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+                flex-direction: column; justify-content: center; align-items: center; gap: 2rem;
+                opacity: 0; pointer-events: none; transform: translateY(-10px);
+            }
+            nav.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+            nav a { font-size: 1.5rem; padding: 1rem; width: 100%; text-align: center; }
+            nav a::after { display: none; }
+
+            /* Hero Mobile Adjustments */
+            .btn-container { flex-direction: column; width: 100%; }
+            .btn { width: 100%; }
+            .hero-features { flex-direction: column; align-items: stretch; }
+            .hero-features span { justify-content: center; }
+
+            /* WhatsApp Button resize */
             .whatsapp-float { bottom: 20px; right: 20px; width: 55px; height: 55px; }
             .whatsapp-float svg { width: 30px; height: 30px; }
         }
@@ -228,8 +193,8 @@
             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect fill='%232563eb' width='40' height='40' rx='4'/%3E%3Cpath fill='white' d='M20 8l10 5v10c0 5-4 9-10 12-6-3-10-7-10-12V13l10-5z'/%3E%3C/svg%3E" alt="Fortress Logo">
             <span>Fortress</span>
         </div>
-        <button class="menu-btn" onclick="document.querySelector('nav').classList.toggle('active')">☰</button>
-        <nav>
+        <button class="menu-btn" id="menu-toggle" aria-label="Toggle Navigation">☰</button>
+        <nav id="nav-menu">
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#services">Services</a>
@@ -247,18 +212,20 @@
                 <span>⏰ 24/7 Operations</span>
                 <span>✓ PSARA Compliant</span>
             </div>
-            <a href="#contact" class="btn">Get a Quote</a>
-            <a href="#services" class="btn btn-outline">Explore Services</a>
+            <div class="btn-container">
+                <a href="#contact" class="btn">Get a Quote</a>
+                <a href="#services" class="btn btn-outline">Explore Services</a>
+            </div>
         </div>
     </section>
 
     <section class="about reveal" id="about">
         <h2 class="section-title">Who <span>We Are</span></h2>
-        <p>Fortress is a premier security and facility management firm dedicated to delivering excellence across all verticals. From comprehensive Security Services and Manpower Supply to high-end Surveillance, Risk Management, and Housekeeping—we engineer tailored solutions that guarantee safety, operational efficiency, and unwavering professionalism.</p>
+        <p>Fortress is a premier security and facility solutions firm dedicated to delivering excellence across all verticals. From comprehensive Security Services and Manpower Supply to high-end Surveillance, Risk Management, and Housekeeping—we engineer tailored solutions that guarantee safety, operational efficiency, and unwavering professionalism.</p>
     </section>
 
     <section class="services reveal" id="services">
-        <h2 class="section-title">Our <span>Services</span></h2>
+        <h2 class="section-title">Our <span>Solutions</span></h2>
         <div class="services-grid">
             <div class="service-card">
                 <div class="icon">🛡️</div>
@@ -301,15 +268,15 @@
             </div>
             <div class="stat-item">
                 <h3><span class="counter" data-target="10">0</span>+</h3>
-                <p>Years Experience</p>
+                <p>Years Exp.</p>
             </div>
             <div class="stat-item">
                 <h3><span class="counter" data-target="1000">0</span>+</h3>
-                <p>Trained Personnel</p>
+                <p>Personnel</p>
             </div>
             <div class="stat-item">
                 <h3>24/7</h3>
-                <p>Active Support</p>
+                <p>Support</p>
             </div>
         </div>
     </section>
@@ -354,15 +321,15 @@
         <h2 class="section-title">Common <span>Questions</span></h2>
         <div class="faq">
             <details>
-                <summary>Are your security guards licensed and verified?</summary>
+                <summary>Are your guards licensed and verified?</summary>
                 <p>Yes, absolutely. 100% of our security personnel undergo rigorous police background checks, are fully PSARA compliant, and receive mandatory operational training before deployment.</p>
             </details>
             <details>
-                <summary>Do you operate outside standard business hours?</summary>
+                <summary>Do you operate outside standard hours?</summary>
                 <p>We are a 24/7/365 operation. We offer round-the-clock security and facility management support, ensuring your assets are protected nights, weekends, and holidays.</p>
             </details>
             <details>
-                <summary>Can you create a custom security plan for my specific industry?</summary>
+                <summary>Can you create custom security plans?</summary>
                 <p>Yes. We begin every partnership with a comprehensive site audit. From there, we design a bespoke security and manpower strategy tailored exactly to your industry's unique vulnerabilities.</p>
             </details>
         </div>
@@ -377,7 +344,7 @@
                 <p><span>📞 Direct Line</span>
                 +91 90300 51070</p>
                 <p><span>✉️ Email Desk</span>
-                info@fortresssecurity.com</p>
+                <a href="mailto:contact.fsfortress@gmail.com" class="email-link">contact.fsfortress@gmail.com</a></p>
             </div>
             <form class="contact-form" onsubmit="alert('Thank you for reaching out! We will contact you shortly.'); return false;">
                 <input type="text" name="name" placeholder="Full Name" required>
@@ -390,30 +357,47 @@
 
     <footer>
         <h3>Fortress</h3>
-        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Elite Security & Facility Management</p>
+        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Elite Security & Facility Solutions</p>
         <div class="social">
             <a href="#" aria-label="Facebook">f</a>
             <a href="#" aria-label="LinkedIn">in</a>
             <a href="#" aria-label="Twitter">X</a>
         </div>
-        <p>&copy; 2026 Fortress Security Services. All rights reserved.</p>
+        <p style="font-size: 0.85rem; opacity: 0.7;">&copy; 2026 Fortress Security & Facility Solutions. All rights reserved.</p>
     </footer>
 
-    <a href="https://wa.me/919030051070?text=Hello!%20I%20am%20interested%20in%20your%20security%20and%20facility%20services." class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+    <a href="https://wa.me/919030051070?text=Hello!%20I%20am%20interested%20in%20your%20security%20and%20facility%20solutions." class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
             <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-2.1-3.6 2.1-3.2 7.6-14.1 2.8-5.6 1.4-10.4-1.4-16-2.8-5.6-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
         </svg>
     </a>
 
     <script>
-        // 1. Dynamic Glass Header
+        // 1. Mobile Menu Toggle & Auto-Close
+        const menuBtn = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('#nav-menu a');
+
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuBtn.innerHTML = navMenu.classList.contains('active') ? '✕' : '☰';
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuBtn.innerHTML = '☰';
+            });
+        });
+
+        // 2. Dynamic Glass Header
         const header = document.getElementById('main-header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) header.classList.add('scrolled');
             else header.classList.remove('scrolled');
         });
 
-        // 2. Scroll Reveal Animation
+        // 3. Scroll Reveal Animation
         function reveal() {
             let reveals = document.querySelectorAll(".reveal");
             for (let i = 0; i < reveals.length; i++) {
@@ -424,9 +408,9 @@
             }
         }
         window.addEventListener("scroll", reveal);
-        reveal();
+        reveal(); // Trigger once on load
 
-        // 3. Number Counter Animation
+        // 4. Number Counter Animation
         let counted = false;
         function startCounters() {
             const counters = document.querySelectorAll('.counter');
@@ -451,10 +435,12 @@
         // Trigger counters when Stats section is in view
         window.addEventListener('scroll', () => {
             const statsContainer = document.getElementById('stats-container');
-            const statsTop = statsContainer.getBoundingClientRect().top;
-            if (statsTop < window.innerHeight && !counted) {
-                startCounters();
-                counted = true;
+            if(statsContainer) {
+                const statsTop = statsContainer.getBoundingClientRect().top;
+                if (statsTop < window.innerHeight && !counted) {
+                    startCounters();
+                    counted = true;
+                }
             }
         });
     </script>
