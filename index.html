@@ -344,29 +344,34 @@
         <div class="contact-wrapper">
             <div class="contact-info">
                 <p>
-                    <span>📍 Headquarters</span>
-                    <span class="address-text">123 Business Park, Suite 100<br>Hyderabad, Telangana <span style="white-space: nowrap;">500081</span></span>
+                    <span>📍 Head Office</span>
+                    <span class="address-text">Flat No 401, Saptagiri Towers, Begumpet<br>Hyderabad, Telangana <span style="white-space: nowrap;">500081</span></span>
                 </p>
                 <p>
-                    <span>📞 Direct Line</span>
-                    <a href="tel:+919030051070" class="contact-link">+91 90300 51070</a>
                 </p>
                 <p>
                     <span>✉️ Email Desk</span>
                     <a href="mailto:contact.fsfortress@gmail.com" class="contact-link">contact.fsfortress@gmail.com</a>
                 </p>
             </div>
-            <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-    <input type="hidden" name="access_key" value="b30c3070-31ae-41a3-941c-a50c13a1f169">
-    
-    <input type="hidden" name="redirect" value="https://fsfortress.github.io/">
-
-    <input type="text" name="name" placeholder="Full Name" required>
-    <input type="email" name="email" placeholder="Business Email" required>
-    <textarea name="message" placeholder="How can we help secure your business?" required></textarea>
-    
-    <button type="submit" class="btn" style="width: 100%">Send Message</button>
-</form>
+            
+            <div class="contact-form-container">
+                <form id="contactForm" class="contact-form">
+                    <input type="hidden" name="access_key" value="b30c3070-31ae-41a3-941c-a50c13a1f169">
+                    
+                    <input type="text" name="name" placeholder="Full Name" required>
+                    <input type="tel" name="phone" placeholder="Phone Number" required>
+                    <textarea name="message" placeholder="How can we help secure your business?" required></textarea>
+                    
+                    <button type="submit" class="btn" style="width: 100%">Send Message</button>
+                </form>
+                
+                <div id="formResult" style="display: none; text-align: center; padding: 2rem; background: var(--bg-light); border-radius: 12px; border: 1px solid #e2e8f0;">
+                    <h3 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1.5rem;">Message Sent! ✓</h3>
+                    <p style="color: var(--gray);">Thank you for reaching out. Our team will get back to you shortly.</p>
+                </div>
+            </div>
+            
         </div>
     </section>
 
@@ -458,6 +463,52 @@
                 }
             }
         });
+
+        // 5. Form Submission without Redirect (AJAX)
+        const contactForm = document.getElementById('contactForm');
+        const formResult = document.getElementById('formResult');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Stops the default page redirect
+                
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = 'Sending...';
+                submitBtn.disabled = true;
+
+                const formData = new FormData(contactForm);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                .then(async (response) => {
+                    let json = await response.json();
+                    if (response.status == 200) {
+                        // Success! Hide form, show message
+                        contactForm.style.display = 'none';
+                        formResult.style.display = 'block';
+                    } else {
+                        console.log(response);
+                        alert(json.message);
+                        submitBtn.innerHTML = 'Send Message';
+                        submitBtn.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert("Something went wrong! Please try again.");
+                    submitBtn.innerHTML = 'Send Message';
+                    submitBtn.disabled = false;
+                });
+            });
+        }
     </script>
 
 </body>
