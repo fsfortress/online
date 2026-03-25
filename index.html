@@ -356,12 +356,17 @@
                     <a href="mailto:contact.fsfortress@gmail.com" class="contact-link">contact.fsfortress@gmail.com</a>
                 </p>
             </div>
-            <form class="contact-form" onsubmit="alert('Thank you for reaching out! We will contact you shortly.'); return false;">
-                <input type="text" name="name" placeholder="Full Name" required>
-                <input type="email" name="email" placeholder="Business Email" required>
-                <textarea name="message" placeholder="How can we help secure your business?" required></textarea>
-                <button type="submit" class="btn" style="width: 100%">Send Message</button>
-            </form>
+            <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="b30c3070-31ae-41a3-941c-a50c13a1f169">
+    
+    <input type="hidden" name="redirect" value="https://fsfortress.github.io/">
+
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Business Email" required>
+    <textarea name="message" placeholder="How can we help secure your business?" required></textarea>
+    
+    <button type="submit" class="btn" style="width: 100%">Send Message</button>
+</form>
         </div>
     </section>
 
